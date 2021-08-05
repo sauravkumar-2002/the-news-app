@@ -5,16 +5,13 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.example.all_news.databinding.FragmentGeneralBinding;
+import com.example.all_news.databinding.FragmentBusinessBinding;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -22,16 +19,14 @@ import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link general#newInstance} factory method to
+ * Use the {@link business#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class general extends Fragment {
+public class business extends Fragment {
     modelgenersl modelgenersl;
-ArrayList<modelarticles> article;
-    FragmentGeneralBinding binding;
-    generaladapter generaladapter;
-    ArrayList<modelarticles>listrecv;
-
+FragmentBusinessBinding businessBinding;
+ArrayList<modelarticles> listew;
+businessadapter businessadapter;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -41,7 +36,7 @@ ArrayList<modelarticles> article;
     private String mParam1;
     private String mParam2;
 
-    public general() {
+    public business() {
         // Required empty public constructor
     }
 
@@ -51,11 +46,11 @@ ArrayList<modelarticles> article;
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment general.
+     * @return A new instance of fragment business.
      */
     // TODO: Rename and change types and number of parameters
-    public static general newInstance(String param1, String param2) {
-        general fragment = new general();
+    public static business newInstance(String param1, String param2) {
+        business fragment = new business();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -76,31 +71,30 @@ ArrayList<modelarticles> article;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding=FragmentGeneralBinding.inflate(inflater, container, false);
-     article=new ArrayList<>();
-     listrecv=new ArrayList<>();
-        binding.generalrecv.setLayoutManager(new LinearLayoutManager(getContext()));
-        generaladapter=new generaladapter(article,getContext());
-       binding.generalrecv.setAdapter(generaladapter);
-
-        generalapputility generalapputility=new generalapputility();
-        generalapputility.geapiinterface().getfn("04a8284df13b4d37878a479e5d57f53b","general",100,"en").enqueue(new Callback<com.example.all_news.modelgenersl>() {
+        businessBinding=FragmentBusinessBinding.inflate(inflater, container, false);
+        businessBinding.recvbusiness.setLayoutManager(new LinearLayoutManager(getActivity()));
+        listew=new ArrayList<>();
+        businessadapter=new businessadapter(listew,getContext());
+        businessBinding.recvbusiness.setAdapter(businessadapter);
+        businessapputility businessapputility=new businessapputility();
+        businessapputility.getapiinterface().getfn("04a8284df13b4d37878a479e5d57f53b","business",100,"en").enqueue(new Callback<modelgenersl>() {
             @Override
-            public void onResponse(Call<com.example.all_news.modelgenersl> call, Response<com.example.all_news.modelgenersl> response) {
+            public void onResponse(Call<modelgenersl> call, Response<modelgenersl> response) {
                 modelgenersl=response.body();
-                article.addAll(modelgenersl.getArticles());
-                String s=article.get(1).getSource().get("name");
-               // String x=article.get(2).getAuthor();
-              //  Log.v("fgh",x);
-                generaladapter.notifyDataSetChanged();
-
+                listew.addAll(modelgenersl.getArticles());
+               businessadapter.notifyDataSetChanged();
             }
 
             @Override
-            public void onFailure(Call<com.example.all_news.modelgenersl> call, Throwable t) {
+            public void onFailure(Call<modelgenersl> call, Throwable t) {
 
             }
         });
-return binding.getRoot();
+
+
+
+
+
+        return businessBinding.getRoot();
     }
 }

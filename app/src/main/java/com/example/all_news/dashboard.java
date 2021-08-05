@@ -24,9 +24,9 @@ fragmentadapter fragmentadapter;
         fragmentadapter=new fragmentadapter(fragmentManager,getLifecycle());
         binding.vp2.setAdapter(fragmentadapter);
         binding.tblayout.addTab(binding.tblayout.newTab().setText("general"));
-        binding.tblayout.addTab(binding.tblayout.newTab().setText("politics"));
+        binding.tblayout.addTab(binding.tblayout.newTab().setText("business"));
         binding.tblayout.addTab(binding.tblayout.newTab().setText("sports"));
-        binding.tblayout.addTab(binding.tblayout.newTab().setText("education"));
+        binding.tblayout.addTab(binding.tblayout.newTab().setText("entertainment"));
         binding.tblayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {

@@ -19,12 +19,12 @@ public class fragmentadapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         switch (position){
             case 1:
-                return new politics();
+                return new business();
             case 2:
-                return new politics();
+                return new sports();
 
             case 3:
-                return new education();
+                return new entertainment();
         }
 
         return new general();
