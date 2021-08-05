@@ -8,7 +8,7 @@ public class businessapputility {
 
     public static businessapiinterface getapiinterface() {
         if (retrofit == null) {
-            retrofit = new Retrofit.Builder().baseUrl(generalapiinteface.url).addConverterFactory(GsonConverterFactory.create()).build();
+            retrofit = new Retrofit.Builder().baseUrl(businessapiinterface.url).addConverterFactory(GsonConverterFactory.create()).build();
 
         }
         return retrofit.create(businessapiinterface.class);

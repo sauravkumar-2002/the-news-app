@@ -3,10 +3,19 @@ package com.example.all_news;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.all_news.databinding.FragmentSportsBinding;
+
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,7 +23,10 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class sports extends Fragment {
-
+    FragmentSportsBinding sportsBinding;
+    modelgenersl modelgenersl;
+    ArrayList<modelarticles> listew;
+    sportsadapter sportsadapter;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -59,6 +71,26 @@ public class sports extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sports, container, false);
+        sportsBinding=FragmentSportsBinding.inflate(inflater, container, false);
+        sportsBinding.sprecv.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        listew=new ArrayList<>();
+
+        sportsadapter=new sportsadapter(listew,getContext());
+        sportsBinding.sprecv.setAdapter(sportsadapter);
+        sportsapputility.get2apiinterface().getfn("04a8284df13b4d37878a479e5d57f53b","sports",100,"en").enqueue(new Callback<com.example.all_news.modelgenersl>() {
+            @Override
+            public void onResponse(Call<com.example.all_news.modelgenersl> call, Response<com.example.all_news.modelgenersl> response) {
+                modelgenersl=response.body();
+                listew.addAll(modelgenersl.getArticles());
+                sportsadapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<com.example.all_news.modelgenersl> call, Throwable t) {
+
+            }
+        });
+        return sportsBinding.getRoot();
     }
 }
