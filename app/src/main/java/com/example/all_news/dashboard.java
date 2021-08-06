@@ -3,9 +3,12 @@ package com.example.all_news;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.widget.ViewPager2;
-
+import androidx.appcompat.widget.SearchView;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+
 
 import com.example.all_news.databinding.ActivityDashboardBinding;
 import com.example.all_news.databinding.ActivityMainBinding;
@@ -23,6 +26,7 @@ fragmentadapter fragmentadapter;
         FragmentManager fragmentManager=getSupportFragmentManager();
         fragmentadapter=new fragmentadapter(fragmentManager,getLifecycle());
         binding.vp2.setAdapter(fragmentadapter);
+        setSupportActionBar(binding.toolbar);
         binding.tblayout.addTab(binding.tblayout.newTab().setText("general"));
         binding.tblayout.addTab(binding.tblayout.newTab().setText("business"));
         binding.tblayout.addTab(binding.tblayout.newTab().setText("sports"));
@@ -56,6 +60,23 @@ fragmentadapter fragmentadapter;
 
    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.searchtoolbar,menu);
+        MenuItem menuItem=menu.findItem(R.id.actiosearch);
+        SearchView searchView=(SearchView)menuItem.getActionView();
+        searchView.setQueryHint("Type here to Search");
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
 
-
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+        return super.onCreateOptionsMenu(menu);
+    }
 }

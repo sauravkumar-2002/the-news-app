@@ -3,10 +3,20 @@ package com.example.all_news;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.all_news.databinding.FragmentEntertainmentBinding;
+import com.example.all_news.databinding.FragmentSportsBinding;
+
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,7 +24,10 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class entertainment extends Fragment {
-
+    FragmentEntertainmentBinding entertainmentBinding;
+    modelgenersl modelgenersl;
+    ArrayList<modelarticles> listew;
+    entertainmentadapter entertainmentadapter;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -59,6 +72,24 @@ public class entertainment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_entertainment, container, false);
+        entertainmentBinding= FragmentEntertainmentBinding.inflate(inflater, container, false);
+        entertainmentBinding.entrcv.setLayoutManager(new LinearLayoutManager(getContext()));
+        listew=new ArrayList<>();
+        entertainmentadapter=new entertainmentadapter(listew,getContext());
+        entertainmentBinding.entrcv.setAdapter(entertainmentadapter);
+        etertainmentapiutility.get2apiinterface().getfn("04a8284df13b4d37878a479e5d57f53b","entertainment",100,"en").enqueue(new Callback<com.example.all_news.modelgenersl>() {
+            @Override
+            public void onResponse(Call<com.example.all_news.modelgenersl> call, Response<com.example.all_news.modelgenersl> response) {
+                modelgenersl=response.body();
+                listew.addAll(modelgenersl.getArticles());
+                entertainmentadapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<com.example.all_news.modelgenersl> call, Throwable t) {
+
+            }
+        });
+        return entertainmentBinding.getRoot();
     }
 }
