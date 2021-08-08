@@ -16,9 +16,5 @@
         android:id="@+id/share"
         android:icon="@drawable/ic_baseline_share_24"
         android:title="share"/>
-    <item
-        android:id="@+id/languagespinner"
-        android:icon="@drawable/ic_baseline_share_24"
-        android:title="spinnerlang"
-        android:actionLayout="@layout/languagespinner"/>
+
 </menu>

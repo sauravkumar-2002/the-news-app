@@ -2,6 +2,8 @@ package com.example.all_news;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -20,73 +22,38 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link general#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class general extends Fragment {
     modelgenersl modelgenersl;
 ArrayList<modelarticles> article;
     FragmentGeneralBinding binding;
     generaladapter generaladapter;
     ArrayList<modelarticles>listrecv;
+    String languageselected="en",countryselected="in";
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public general() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment general.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static general newInstance(String param1, String param2) {
-        general fragment = new general();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         binding=FragmentGeneralBinding.inflate(inflater, container, false);
+        binding.pleasewait.setVisibility(View.VISIBLE);
      article=new ArrayList<>();
      listrecv=new ArrayList<>();
         binding.generalrecv.setLayoutManager(new LinearLayoutManager(getContext()));
         generaladapter=new generaladapter(article,getContext());
        binding.generalrecv.setAdapter(generaladapter);
-
+        dashboard dashboard=(dashboard)getActivity();
+        languageselected=dashboard.getMydata();
+        Log.v("saurav","fg   activityoncreateview");
+        Toast.makeText(getContext(),languageselected,Toast.LENGTH_SHORT).show();
         generalapputility generalapputility=new generalapputility();
-        generalapputility.geapiinterface().getfn("04a8284df13b4d37878a479e5d57f53b","general",100,"en").enqueue(new Callback<com.example.all_news.modelgenersl>() {
+        generalapputility.geapiinterface().getfn("04a8284df13b4d37878a479e5d57f53b","general",100,languageselected).enqueue(new Callback<com.example.all_news.modelgenersl>() {
             @Override
             public void onResponse(Call<com.example.all_news.modelgenersl> call, Response<com.example.all_news.modelgenersl> response) {
+                binding.pleasewait.setVisibility(View.GONE);
                 modelgenersl=response.body();
                 article.addAll(modelgenersl.getArticles());
                 String s=article.get(1).getSource().get("name");
@@ -102,5 +69,66 @@ ArrayList<modelarticles> article;
             }
         });
 return binding.getRoot();
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        Log.v("saurav","fg    activityoncreate");
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        Log.v("saurav","fg    activityonviewcreated");
+        super.onViewCreated(view, savedInstanceState);
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        Log.v("saurav","fg    activityonviewrestored");
+        super.onViewStateRestored(savedInstanceState);
+    }
+
+    @Override
+    public void onStart() {
+        Log.v("saurav","fg    activityonstarted");
+
+        super.onStart();
+    }
+
+    @Override
+    public void onResume() {
+        Log.v("saurav","fg    activityonresume");
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        Log.v("saurav","fg    activityonpaiuse");
+        super.onPause();
+    }
+
+    @Override
+    public void onStop() {
+        Log.v("saurav","fg    activityonstop");
+        super.onStop();
+    }
+
+    @Override
+    public void onDestroyView() {
+        Log.v("saurav","fg    activityondestroyview");
+        super.onDestroyView();
+    }
+
+    @Override
+    public void onDestroy() {
+        Log.v("saurav","fg    activityondestroy");
+        super.onDestroy();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        Log.v("saurav","fg    activityonsaveinstance");
+        super.onSaveInstanceState(outState);
     }
 }

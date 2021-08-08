@@ -9,21 +9,7 @@
     android:layout_height="match_parent"
     tools:context=".dashboard"
     >
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/navmenu1"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        app:headerLayout="@layout/header"
-        app:menu="@menu/navmenu" >
-        <Spinner
-            android:id="@+id/spinndfghj"
-            android:layout_width="224dp"
-            android:layout_height="80dp"
 
-            android:tag=""
-            />
-    </com.google.android.material.navigation.NavigationView>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -39,17 +25,30 @@
 
 
 
-    <com.google.android.material.tabs.TabLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-
-        app:tabMode="scrollable"
-        android:id="@+id/tblayout"
-    android:background="@color/teal_200"/>
-   <androidx.viewpager2.widget.ViewPager2
+   <FrameLayout
        android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:id="@+id/vp2"/>
+       android:layout_height="match_parent"
+       android:id="@+id/homecontainer">
+
+   </FrameLayout>
 
     </LinearLayout>
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navmenu1"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/header"
+        app:menu="@menu/navmenu" >
+        <Spinner
+            android:id="@+id/spinndfghj"
+            android:layout_width="224dp"
+            android:layout_marginTop="289dp"
+            android:layout_height="80dp"
+            android:tag="language"
+
+
+
+            />
+    </com.google.android.material.navigation.NavigationView>
 </androidx.drawerlayout.widget.DrawerLayout>

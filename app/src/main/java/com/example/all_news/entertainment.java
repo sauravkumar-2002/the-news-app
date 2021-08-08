@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.all_news.databinding.FragmentEntertainmentBinding;
 import com.example.all_news.databinding.FragmentSportsBinding;
@@ -28,6 +29,7 @@ public class entertainment extends Fragment {
     modelgenersl modelgenersl;
     ArrayList<modelarticles> listew;
     entertainmentadapter entertainmentadapter;
+    String languageselected,countryselected="in";
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -73,13 +75,18 @@ public class entertainment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         entertainmentBinding= FragmentEntertainmentBinding.inflate(inflater, container, false);
+        entertainmentBinding.pleasewait.setVisibility(View.VISIBLE);
         entertainmentBinding.entrcv.setLayoutManager(new LinearLayoutManager(getContext()));
         listew=new ArrayList<>();
+        dashboard dashboard=(dashboard)getActivity();
+        languageselected=dashboard.getMydata();
+        Toast.makeText(getContext(),languageselected,Toast.LENGTH_SHORT).show();
         entertainmentadapter=new entertainmentadapter(listew,getContext());
         entertainmentBinding.entrcv.setAdapter(entertainmentadapter);
-        etertainmentapiutility.get2apiinterface().getfn("04a8284df13b4d37878a479e5d57f53b","entertainment",100,"en").enqueue(new Callback<com.example.all_news.modelgenersl>() {
+        etertainmentapiutility.get2apiinterface().getfn("04a8284df13b4d37878a479e5d57f53b","entertainment",100,languageselected).enqueue(new Callback<com.example.all_news.modelgenersl>() {
             @Override
             public void onResponse(Call<com.example.all_news.modelgenersl> call, Response<com.example.all_news.modelgenersl> response) {
+                entertainmentBinding.pleasewait.setVisibility(View.GONE);
                 modelgenersl=response.body();
                 listew.addAll(modelgenersl.getArticles());
                 entertainmentadapter.notifyDataSetChanged();

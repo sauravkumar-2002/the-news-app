@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.all_news.databinding.FragmentSportsBinding;
 
@@ -27,6 +28,7 @@ public class sports extends Fragment {
     modelgenersl modelgenersl;
     ArrayList<modelarticles> listew;
     sportsadapter sportsadapter;
+    String languageselected,countryselected="in";
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -72,15 +74,20 @@ public class sports extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         sportsBinding=FragmentSportsBinding.inflate(inflater, container, false);
+        sportsBinding.pleasewait.setVisibility(View.VISIBLE);
+        dashboard dashboard=(dashboard)getActivity();
+        languageselected=dashboard.getMydata();
+        Toast.makeText(getContext(),languageselected,Toast.LENGTH_SHORT).show();
         sportsBinding.sprecv.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         listew=new ArrayList<>();
 
         sportsadapter=new sportsadapter(listew,getContext());
         sportsBinding.sprecv.setAdapter(sportsadapter);
-        sportsapputility.get2apiinterface().getfn("04a8284df13b4d37878a479e5d57f53b","sports",100,"en").enqueue(new Callback<com.example.all_news.modelgenersl>() {
+        sportsapputility.get2apiinterface().getfn("04a8284df13b4d37878a479e5d57f53b","sports",100,languageselected).enqueue(new Callback<com.example.all_news.modelgenersl>() {
             @Override
             public void onResponse(Call<com.example.all_news.modelgenersl> call, Response<com.example.all_news.modelgenersl> response) {
+                sportsBinding.pleasewait.setVisibility(View.GONE);
                 modelgenersl=response.body();
                 listew.addAll(modelgenersl.getArticles());
                 sportsadapter.notifyDataSetChanged();
@@ -91,6 +98,7 @@ public class sports extends Fragment {
 
             }
         });
+
         return sportsBinding.getRoot();
     }
 }

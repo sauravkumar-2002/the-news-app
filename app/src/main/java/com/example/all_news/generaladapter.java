@@ -1,6 +1,7 @@
 package com.example.all_news;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -41,6 +43,14 @@ holder.author.setText(listnew.get(position).getAuthor());
                 .load(listnew.get(position).urlToImage)
                 .into(holder.imageView);
 
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(context,webview.class);
+                intent.putExtra("url",listnew.get(position).getUrl());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -52,11 +62,13 @@ holder.author.setText(listnew.get(position).getAuthor());
        // SinglerowGeneralBinding binding1;
         TextView title,time,author;
         ImageView imageView;
+        CardView cardView;
         public viewholder(@NonNull View itemView) {
             super(itemView);
             time=itemView.findViewById(R.id.timepgeneral);
             title=itemView.findViewById(R.id.titlegeneral);
             author=itemView.findViewById(R.id.authorgeneral);
+            cardView=itemView.findViewById(R.id.cvgeneral);
             imageView=itemView.findViewById(R.id.img);
         }
     }

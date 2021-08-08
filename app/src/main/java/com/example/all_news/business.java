@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.all_news.databinding.FragmentBusinessBinding;
 
@@ -27,6 +28,7 @@ public class business extends Fragment {
 FragmentBusinessBinding businessBinding;
 ArrayList<modelarticles> listew;
 businessadapter businessadapter;
+String languageselected,countryselected="in";
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -73,13 +75,18 @@ businessadapter businessadapter;
         // Inflate the layout for this fragment
         businessBinding=FragmentBusinessBinding.inflate(inflater, container, false);
         businessBinding.recvbusiness.setLayoutManager(new LinearLayoutManager(getActivity()));
+        businessBinding.pleasewait.setVisibility(View.VISIBLE);
         listew=new ArrayList<>();
+        dashboard dashboard=(dashboard)getActivity();
+        languageselected=dashboard.getMydata();
+        Toast.makeText(getContext(),languageselected,Toast.LENGTH_SHORT).show();
         businessadapter=new businessadapter(listew,getContext());
         businessBinding.recvbusiness.setAdapter(businessadapter);
         businessapputility businessapputility=new businessapputility();
-        businessapputility.getapiinterface().getfn("04a8284df13b4d37878a479e5d57f53b","business",100,"en").enqueue(new Callback<modelgenersl>() {
+        businessapputility.getapiinterface().getfn("04a8284df13b4d37878a479e5d57f53b","business",100,languageselected).enqueue(new Callback<modelgenersl>() {
             @Override
             public void onResponse(Call<modelgenersl> call, Response<modelgenersl> response) {
+                businessBinding.pleasewait.setVisibility(View.GONE);
                 modelgenersl=response.body();
                 listew.addAll(modelgenersl.getArticles());
                businessadapter.notifyDataSetChanged();

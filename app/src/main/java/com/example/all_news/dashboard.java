@@ -30,21 +30,22 @@ public class dashboard extends AppCompatActivity {
 ActivityDashboardBinding binding;
 
 ActionBarDrawerToggle toggle;
-fragmentadapter fragmentadapter;
+String languageselected="en";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         binding=ActivityDashboardBinding.inflate(getLayoutInflater());
         View v=binding.getRoot();
         setContentView(v);
-        FragmentManager fragmentManager=getSupportFragmentManager();
-        fragmentadapter=new fragmentadapter(fragmentManager,getLifecycle());
-        binding.vp2.setAdapter(fragmentadapter);
+       // Log.v("saurav","activityoncrteate");
+
         setSupportActionBar(binding.toolbar);
-        binding.tblayout.addTab(binding.tblayout.newTab().setText("general"));
-        binding.tblayout.addTab(binding.tblayout.newTab().setText("business"));
-        binding.tblayout.addTab(binding.tblayout.newTab().setText("sports"));
-        binding.tblayout.addTab(binding.tblayout.newTab().setText("entertainment"));
+        getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.homecontainer,new home()).commit();
+        if(!binding.drawer.isDrawerOpen(GravityCompat.START)){
+            Toast.makeText(getApplicationContext(),"hhhhh",Toast.LENGTH_SHORT).show();
+        }
 toggle=new ActionBarDrawerToggle(this,binding.drawer,binding.toolbar,R.string.open,R.string.close);
 binding.drawer.addDrawerListener(toggle);
 toggle.syncState();
@@ -59,16 +60,18 @@ toggle.syncState();
 
 
         */
-        String languagelist[]={"d","e","dhh","d","e","dhh","d","e","dhh","d","e","dhh","d","e","dhh"};
-        ArrayAdapter<String> adapter=new ArrayAdapter(this,R.layout.spinnerlistitem,languagelist);
-        adapter.setDropDownViewResource(R.layout.dropdownlstitem);
+      String languagelist[]={"ar","en","at","d","ae","dhh","d","e","dhh","d","e","dhh","d","e","dhh"};
+        ArrayAdapter<String> adapter=new ArrayAdapter(this,R.layout.support_simple_spinner_dropdown_item,languagelist);
+        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         binding.spinndfghj.setAdapter(adapter);
         binding.spinndfghj.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String item = parent.getItemAtPosition(position).toString();
-                Toast.makeText(parent.getContext(), "Selected: " +item,          Toast.LENGTH_LONG).show();
+               languageselected = parent.getItemAtPosition(position).toString();
+                Toast.makeText(parent.getContext(), "Selected: " +languageselected, Toast.LENGTH_LONG).show();
                 Log.v("xx","ddddddd0");
+                getSupportFragmentManager().beginTransaction().replace(R.id.homecontainer,new home()).commit();
+
             }
 
             @Override
@@ -76,39 +79,37 @@ toggle.syncState();
 
             }
         });
+binding.navmenu1.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+       switch(item.getItemId()){
+           case R.id.language:
+               Toast.makeText(getApplicationContext(),"hhhhhhhhhh",Toast.LENGTH_SHORT).show();
+               binding.drawer.closeDrawer(GravityCompat.START);
+               break;
+       }
+       return true;
+    }
+});
 
 
 
 
 
-         binding.tblayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                binding.vp2.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
-        binding.vp2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override
-            public void onPageSelected(int position) {
-                binding.tblayout.selectTab(binding.tblayout.getTabAt(position));
-            }
 
 
-        });
+
+
+
+
+
 
 
 
    }
+
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -128,5 +129,8 @@ toggle.syncState();
             }
         });
         return super.onCreateOptionsMenu(menu);
+    }
+    public String getMydata(){
+        return languageselected;
     }
 }
