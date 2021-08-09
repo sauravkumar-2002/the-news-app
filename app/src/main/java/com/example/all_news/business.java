@@ -79,7 +79,7 @@ String languageselected,countryselected="in";
         listew=new ArrayList<>();
         dashboard dashboard=(dashboard)getActivity();
         languageselected=dashboard.getMydata();
-        Toast.makeText(getContext(),languageselected,Toast.LENGTH_SHORT).show();
+       // Toast.makeText(getContext(),languageselected,Toast.LENGTH_SHORT).show();
         businessadapter=new businessadapter(listew,getContext());
         businessBinding.recvbusiness.setAdapter(businessadapter);
         businessapputility businessapputility=new businessapputility();

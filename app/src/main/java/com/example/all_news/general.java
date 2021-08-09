@@ -48,7 +48,7 @@ ArrayList<modelarticles> article;
         dashboard dashboard=(dashboard)getActivity();
         languageselected=dashboard.getMydata();
         Log.v("saurav","fg   activityoncreateview");
-        Toast.makeText(getContext(),languageselected,Toast.LENGTH_SHORT).show();
+      //  Toast.makeText(getContext(),languageselected,Toast.LENGTH_SHORT).show();
         generalapputility generalapputility=new generalapputility();
         generalapputility.geapiinterface().getfn("04a8284df13b4d37878a479e5d57f53b","general",100,languageselected).enqueue(new Callback<com.example.all_news.modelgenersl>() {
             @Override
@@ -71,64 +71,4 @@ ArrayList<modelarticles> article;
 return binding.getRoot();
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        Log.v("saurav","fg    activityoncreate");
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        Log.v("saurav","fg    activityonviewcreated");
-        super.onViewCreated(view, savedInstanceState);
-    }
-
-    @Override
-    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
-        Log.v("saurav","fg    activityonviewrestored");
-        super.onViewStateRestored(savedInstanceState);
-    }
-
-    @Override
-    public void onStart() {
-        Log.v("saurav","fg    activityonstarted");
-
-        super.onStart();
-    }
-
-    @Override
-    public void onResume() {
-        Log.v("saurav","fg    activityonresume");
-        super.onResume();
-    }
-
-    @Override
-    public void onPause() {
-        Log.v("saurav","fg    activityonpaiuse");
-        super.onPause();
-    }
-
-    @Override
-    public void onStop() {
-        Log.v("saurav","fg    activityonstop");
-        super.onStop();
-    }
-
-    @Override
-    public void onDestroyView() {
-        Log.v("saurav","fg    activityondestroyview");
-        super.onDestroyView();
-    }
-
-    @Override
-    public void onDestroy() {
-        Log.v("saurav","fg    activityondestroy");
-        super.onDestroy();
-    }
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        Log.v("saurav","fg    activityonsaveinstance");
-        super.onSaveInstanceState(outState);
-    }
 }

@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 <item
-    android:id="@+id/language"
-    android:icon="@drawable/ic_baseline_language_24"
-    android:title="Language"/>
+    android:id="@+id/covid"
+    android:icon="@drawable/ic_baseline_update_24"
+    android:title="Covid Updates"/>
     <item
-        android:id="@+id/country"
-        android:icon="@drawable/ic_baseline_outlined_flag_24"
-        android:title="country"/>
+        android:id="@+id/allnews"
+        android:icon="@drawable/ic_baseline_online_prediction_24"
+        android:title="All News"/>
     <item
-        android:id="@+id/setting"
-        android:icon="@drawable/ic_baseline_settings_24"
-        android:title="settings"/>
+        android:id="@+id/recentsearches"
+        android:icon="@drawable/ic_baseline_search_24"
+        android:title="Recent Searches"/>
     <item
-        android:id="@+id/share"
-        android:icon="@drawable/ic_baseline_share_24"
-        android:title="share"/>
+        android:id="@+id/aboutus"
+        android:icon="@drawable/ic_baseline_person_outline_24"
+        android:title="AboutUs"/>
+    <item
+        android:id="@+id/language"
+        android:icon="@drawable/ic_baseline_language_24"
+        android:title="Language"/>
 
 </menu>

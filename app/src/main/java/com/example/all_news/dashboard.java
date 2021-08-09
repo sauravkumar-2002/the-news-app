@@ -4,33 +4,27 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
-import androidx.fragment.app.FragmentManager;
-import androidx.viewpager2.widget.ViewPager2;
 import androidx.appcompat.widget.SearchView;
+
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 
+import com.example.all_news.covid.covid_home;
 import com.example.all_news.databinding.ActivityDashboardBinding;
-import com.example.all_news.databinding.ActivityMainBinding;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.tabs.TabLayout;
-
-import java.util.ArrayList;
 
 public class dashboard extends AppCompatActivity {
 ActivityDashboardBinding binding;
 
 ActionBarDrawerToggle toggle;
-String languageselected="en";
+String languageselected="en",abouturl="https://newsapi.org/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +37,7 @@ String languageselected="en";
 
         setSupportActionBar(binding.toolbar);
         getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.homecontainer,new home()).commit();
-        if(!binding.drawer.isDrawerOpen(GravityCompat.START)){
-            Toast.makeText(getApplicationContext(),"hhhhh",Toast.LENGTH_SHORT).show();
-        }
+
 toggle=new ActionBarDrawerToggle(this,binding.drawer,binding.toolbar,R.string.open,R.string.close);
 binding.drawer.addDrawerListener(toggle);
 toggle.syncState();
@@ -68,8 +60,8 @@ toggle.syncState();
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                languageselected = parent.getItemAtPosition(position).toString();
-                Toast.makeText(parent.getContext(), "Selected: " +languageselected, Toast.LENGTH_LONG).show();
-                Log.v("xx","ddddddd0");
+               // Toast.makeText(parent.getContext(), "Selected: " +languageselected, Toast.LENGTH_LONG).show();
+               // Log.v("xx","ddddddd0");
                 getSupportFragmentManager().beginTransaction().replace(R.id.homecontainer,new home()).commit();
 
             }
@@ -83,10 +75,25 @@ binding.navmenu1.setNavigationItemSelectedListener(new NavigationView.OnNavigati
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
        switch(item.getItemId()){
-           case R.id.language:
-               Toast.makeText(getApplicationContext(),"hhhhhhhhhh",Toast.LENGTH_SHORT).show();
+           case R.id.covid:
+               getSupportFragmentManager().beginTransaction().replace(R.id.homecontainer,new covid_home()).commit();
                binding.drawer.closeDrawer(GravityCompat.START);
                break;
+           case R.id.allnews:
+               getSupportFragmentManager().beginTransaction().replace(R.id.homecontainer,new home()).commit();
+               binding.drawer.closeDrawer(GravityCompat.START);
+               break;
+           case R.id.recentsearches:
+               Toast.makeText(getApplicationContext(),"recent searches",Toast.LENGTH_SHORT).show();
+               binding.drawer.closeDrawer(GravityCompat.START);
+               break;
+           case R.id.aboutus:
+               Intent intent=new Intent(getApplicationContext(),webview.class);
+               intent.putExtra("url",abouturl);
+               startActivity(intent);
+               binding.drawer.closeDrawer(GravityCompat.START);
+               break;
+
        }
        return true;
     }
